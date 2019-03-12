@@ -23,11 +23,11 @@ VAR
   tmp:boolean;
 
 BEGIN
-       if findItem(party,list)=null then BEGIN
+       if findItem(party,list)=null then BEGIN {Comprobamos que o elemento non sea xa existente}
            item.partyname:=party;
            item.numvotes:=0;
            tmp:=insertItem(item,null,list);
-           if tmp then writeln('* New: party ',party)
+           if tmp then writeln('* New: party ',party) {Comprobamos que a inserción se producise satisfactoriamente}
            else writeln('+ Error: New not possible');
        END
        else writeln('+ Error: New not possible');
@@ -52,8 +52,8 @@ VAR
 
 BEGIN
 	comprobador:=TRUE;
-	position:=findItem(party,list);
-        if position=null then BEGIN
+	position:=findItem(party,list); {Comproamos que o elemento exista na lista}
+        if position=null then BEGIN {Se non existe o partido pasaría a ser NULLVOTE}
 				 comprobador:=FALSE;
                  writeln('+ Error: Vote not possible. Party ',party,' not found. NULLVOTE');
                  position:=findItem(NULLVOTE,list);
@@ -62,7 +62,7 @@ BEGIN
         item:=getItem(position,list);
         votes:=item.numvotes+1;
         updateVotes(votes,position,list);
-        if comprobador then writeln('* Vote: party ',party,' numvotes ',votes);
+        if comprobador then writeln('* Vote: party ',party,' numvotes ',votes); {Se o partido si existia mostrase o mensaxe por pantalla}
 END;
 
 
@@ -86,7 +86,7 @@ VAR
 
 BEGIN
 	position:=findItem(party,list);
-       if (position<>null)and(party<>BLANKVOTE)and(party<>NULLVOTE) then BEGIN
+       if (position<>null)and(party<>BLANKVOTE)and(party<>NULLVOTE) then BEGIN {Se o partido existe e non é nin NULLVOTE nin BLANKVOTE procedese á ilegalización}
 			item:=getItem(position,list);
 			partyvotes:=item.numvotes;
 			item:=getItem(findItem(NULLVOTE,list),list);
@@ -95,7 +95,7 @@ BEGIN
 			deleteAtPosition(position,list);
 			writeln('* Illegalize: party ',party);
        END
-       else writeln('+ Error: Illegalize not possible');
+       else writeln('+ Error: Illegalize not possible'); {En caso contrario mostrase error por pantalla}
 
 END;
 
@@ -219,7 +219,8 @@ BEGIN
                                           { copy(s, i, j) copies j characters of string s }
                                           { from position i }
 
-      {Show the task --> Change by the adequate operation}
+
+      {Dependendo do valor "task" realizase a función correspondente}
       writeln('********************');
 
          if task='N' then BEGIN
@@ -244,7 +245,7 @@ BEGIN
 			END;
   END;
    Close(usersFile);
-   CLEAN(list);
+   CLEAN(list); {Ao finalizar todas as ordes vaciase a lista}
 
 END;
 
