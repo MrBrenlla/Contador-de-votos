@@ -103,7 +103,7 @@ position:tPosL;
 		position:=list;
 		while position^.next<>NULL do position:=position^.next;
 		last:=position;
-	end; 
+	end;
 
 
 
@@ -131,14 +131,14 @@ Precondicións: A lista ten que estar inicializada
 Postcondicións: devolverase NULL se non hai anterior}
 
 VAR
-position2:tPosL;
+tmp:tPosL;
 
 	begin
-		if position=list then previous:=NULL
+		if position=list then previous:=NULL {Se a posición é a primeira devolbese NULL}
 		else BEGIN
-			position2:=list;
-			while position2^.next<>position do position2:=position2^.next;
-			previous:=position2;
+			tmp:=list;
+			while tmp^.next<>position do tmp:=tmp^.next; {recorrese a lista ata atopar a posición de inserción}
+			previous:=tmp;
 		end;
 	end;
 
@@ -202,9 +202,9 @@ Postcondicións: Todos os elementos que estan despos da posicion na que se elimi
 	var
 		tmp:tPosL;
 	begin
-		if position=first(list) then list:=position^.next
+		if position=first(list) then list:=position^.next {Se a posición a eliminar é a primeira variarase "list"}
 		else BEGIN
-			tmp:=previous(position,list);
+			tmp:=previous(position,list);{No resto dos casos so variaran os nodos}
 			tmp^.next:=position^.next;
 		END;
 		dispose(position);
@@ -255,10 +255,10 @@ Postcondicións:Devolverase so a posición da primeira vez que apareza o partido
 	VAR
 	position,tmp:tPosL;
 	begin
-	if not(isEmptyList(list)) then BEGIN
+	if not(isEmptyList(list)) then BEGIN {comprobase que a lista non sexa vacía}
 		tmp:=last(list);
 		position:=first(list);
-		while (party<>position^.item.partyname) and (position<>tmp) do position:=next(position,list);
+		while (party<>position^.item.partyname) and (position<>tmp) do position:=next(position,list); {recorrese a lista ata atopar o elemento, ou no seu defecto ata acabar a lista}
 		if(position^.item.partyname=party) then findItem:=position
 		else findItem:=NULL;
 	END
