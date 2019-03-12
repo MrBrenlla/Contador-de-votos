@@ -103,7 +103,7 @@ position:tPosL;
 		position:=list;
 		while position^.next<>NULL do position:=position^.next;
 		last:=position;
-	end;
+	end; 
 
 
 
