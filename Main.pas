@@ -1,6 +1,7 @@
 {
 TITLE: Contador de votos
-AUTHOR: Brais García Brenlla
+AUTHOR 1: Brais García Brenlla        
+AUTHOR 2: Javier González Rodríguez  
 DATE: 15/03/2019
 }
 
